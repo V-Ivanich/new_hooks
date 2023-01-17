@@ -1,15 +1,53 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import CardWrapper from "../../common/Card";
 import SmallTitle from "../../common/typografy/smallTitle";
+import Divider from "../../common/divider";
+
+function factorial(n) {
+    return n ? n * factorial(n - 1) : 1;
+}
+function runFactorial(n) {
+    console.log("run fact");
+    return factorial(n);
+}
 
 const ComplexCalculateExample = () => {
+    const [value, setValue] = useState(100);
+    const [otherState, setOthestater] = useState(false);
+
+    const btnColor = otherState ? "primary" : "secondary";
+    useEffect(() => console.log("render bntColor"), [btnColor]);
+    const fact = useMemo(() => runFactorial(value), [value]);
+
     return (
         <>
             <CardWrapper>
                 <SmallTitle>Кэширование сложных вычислений</SmallTitle>
+                <Divider />
+                <p>Value : {value}</p>
+                <p>Result fact : {fact}</p>
+                <button
+                    className="btn btn-primary mx-2"
+                    onClick={() => setValue((prevState) => prevState + 10)}
+                >
+                    Increment
+                </button>
+                <button
+                    className="btn btn-primary mx-2"
+                    onClick={() => setValue((prevState) => prevState - 10)}
+                >
+                    Decrement
+                </button>
             </CardWrapper>
             <CardWrapper>
                 <SmallTitle>Зависимость от сторонних setState</SmallTitle>
+                <Divider />
+                <button
+                    className={"btn ms-md-2 btn-" + btnColor}
+                    onClick={() => setOthestater((prevState) => !prevState)}
+                >
+                    Change Color
+                </button>
             </CardWrapper>
         </>
     );

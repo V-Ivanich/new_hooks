@@ -10,8 +10,8 @@ const ProgrammableActionsExample = () => {
         console.log(inputRef.current);
         inputRef.current.focus();
     };
-    const handleClickWhidth = () => {
-        inputRef.current.style.whidth = "100px";
+    const handleClickWidth = () => {
+        inputRef.current.style.width = "100px";
     };
     return (
         <CardWrapper>
@@ -31,7 +31,7 @@ const ProgrammableActionsExample = () => {
             <button className="btn btn-primary" onClick={handleClick}>
                 Focus input
             </button>
-            <button className="btn btn-secondary" onClick={handleClickWhidth}>
+            <button className="btn btn-secondary" onClick={handleClickWidth}>
                 Изменить ширину объекта
             </button>
         </CardWrapper>
