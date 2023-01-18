@@ -8,7 +8,6 @@ const LogOutButton = ({ onLogOut }) => {
 
     return (
         <button className="btn btn-primary" onClick={onLogOut}>
-            {" "}
             LogOut
         </button>
     );
@@ -17,16 +16,14 @@ LogOutButton.propTypes = {
     onLogOut: PropTypes.func
 };
 
-function areEqual(prevState,nextState){
-  if (prevState.onLogOut !== nextState.onLogOut)
-}
-const MemoizedLogOutButton = React.memo(
-    LogOutButton,
-    (prevProps, nextProps) => {
-        if (prevProps === nextProps) return true;
+function areEqual(prevState, nextState) {
+    if (prevState.onLogOut !== nextState.onLogOut) {
         return false;
     }
-);
+    return true;
+}
+
+const MemoizedLogOutButton = React.memo(LogOutButton, areEqual);
 
 const MemoWithUseCallbackExample = (props) => {
     const [state, setState] = useState(false);
@@ -43,7 +40,7 @@ const MemoWithUseCallbackExample = (props) => {
             >
                 initiate rerender
             </button>
-            <MemoizedLogOutButton onLogOut={handleLogOut} />;
+            <MemoizedLogOutButton onLogOut={handleLogOut} />
         </>
     );
 };
