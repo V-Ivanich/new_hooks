@@ -2,15 +2,19 @@ import React from "react";
 import CollapseWrapper from "../common/collapse";
 import PropTypes from "prop-types";
 
-const Wrapper = ({ children }) => {
+const WrapperChildren = ({ children }) => {
+    let count = 0;
     return React.Children.map(children, (child) => {
-        if (child.type === Component) {
-            console.log(child.props);
-            return React.cloneElement(child, child.props);
-        }
+        count += 1;
+        const config = {
+            text: `${child.props.text} ${count}`
+        };
+
+        return React.cloneElement(child, config);
     });
 };
-Wrapper.propTypes = {
+
+WrapperChildren.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
@@ -27,17 +31,20 @@ const ChildrenExercise = () => {
                 <code>React.Children.map</code> так и{" "}
                 <code>React.Children.toArray</code>
             </p>
-            <Wrapper>
-                <Component />
-                <Component />
-                <Component />
-            </Wrapper>
+            <WrapperChildren>
+                <Component text="Компонент списка" />
+                <Component text="Компонент списка" />
+                <Component text="Компонент списка" />
+            </WrapperChildren>
         </CollapseWrapper>
     );
 };
 
-const Component = () => {
-    return <div>Компонент списка</div>;
+const Component = ({ text }) => {
+    return <div>{text}</div>;
+};
+Component.propTypes = {
+    text: PropTypes.string
 };
 
 export default ChildrenExercise;
