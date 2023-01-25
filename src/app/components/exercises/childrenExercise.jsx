@@ -3,11 +3,9 @@ import CollapseWrapper from "../common/collapse";
 import PropTypes from "prop-types";
 
 const WrapperChildren = ({ children }) => {
-    let count = 0;
-    return React.Children.map(children, (child) => {
-        count += 1;
+    return React.Children.map(children, (child, index) => {
         const config = {
-            text: `${child.props.text} ${count}`
+            text: `${child.props.text} ${index + 1}`
         };
 
         return React.cloneElement(child, config);
